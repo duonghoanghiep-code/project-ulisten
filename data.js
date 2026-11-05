@@ -10,11 +10,11 @@ window.COMMON_LINE = 'Hôm nay của bạn thế nào? Kể mình nghe nhé.';
 /* Tệp ghi âm theo tỉnh (đặt file vào thư mục /audio).
    Khoá là mã tỉnh mới (xem js/map-data.js). Tỉnh nào chưa có file thì để trống. */
 window.VOICES = {
-  hatinh: { file: 'ha-tinh.mp3', by: 'Bạn Hà Tĩnh' },
+  hatinh: { file: 'ha-tinh.m4a', by: 'Bạn Hà Tĩnh' },
   // Tỉnh có nhiều giọng: dùng [ ... ] và đặt nhãn cho từng giọng
   hcm: [
-    { file: 'tp-hcm-nu.mp3',  label: 'Giọng nữ' },
-    { file: 'tp-hcm-nam.mp3', label: 'Giọng nam' },
+    { file: 'tp-hcm-nu.m4a',  label: 'Giọng nữ' },
+    { file: 'tp-hcm-nam.m4a', label: 'Giọng nam' },
   ],
 };
 /* Tỉnh đang thu âm (hiện ở mục "Một câu nói, nhiều giọng quê") */
