@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ULISTEN — Đường dây ấm tiếng quê</title>
+  <meta name="description" content="Khi chưa thể gọi về nhà, hãy nghe một giọng nói như ở nhà. Đường dây ấm cho sinh viên xa nhà: chọn quê, hẹn giờ, trò chuyện ngay trên web.">
+  <meta name="theme-color" content="#0c1236">
+  <meta property="og:title" content="ULISTEN — Đường dây ấm tiếng quê">
+  <meta property="og:description" content="When you can't call home, call someone who sounds like home.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="lexend-vietnamese-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua tới nội dung</a>
+
+<header class="top" id="top">
+  <a class="logo" href="#/" aria-label="ULISTEN — trang chủ"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5.5H5.5A1.5 1.5 0 0 1 4 19zM20 15h-3v5.5h1.5A1.5 1.5 0 0 0 20 19z"/></svg></i><span>ULISTEN</span></a>
+  <nav class="links" aria-label="Điều hướng chính">
+    <a href="#/" data-scroll="cach-hoat-dong">Cách hoạt động</a>
+    <a href="#/" data-scroll="giong-que">Giọng quê</a>
+    <a href="#/" data-scroll="nguoi-lang-nghe">Người lắng nghe</a>
+    <a href="#/" data-scroll="an-toan">An toàn</a>
+  </nav>
+  <div class="top-r">
+    <span class="chip status" id="statusChip"><span class="live"></span><span>Tối nay mở 20:00 – 23:00</span></span>
+    <a class="btn btn-a btn-s" href="#/ban-do" id="ctaTop">Bắt đầu</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HOME + MAP EXPLORER ============ -->
+<section class="view" data-view="home">
+  <div class="hero" id="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Đường dây ấm cho sinh viên xa nhà</p>
+      <h1>Khi chưa thể gọi về nhà, hãy nghe một giọng nói <em>như ở nhà.</em></h1>
+      <p class="tagline">When you can’t call home, call someone who sounds like home.</p>
+      <div class="search" id="search">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="q" type="search" autocomplete="off" placeholder="Quê bạn ở đâu? Gõ tên tỉnh…" aria-label="Tìm tỉnh, kể cả tên tỉnh cũ" aria-controls="qList" aria-expanded="false" role="combobox">
+        <kbd>/</kbd>
+        <ul class="dd" id="qList" role="listbox" hidden></ul>
+      </div>
+      <p class="hint">Gõ cả tên tỉnh cũ cũng được — ví dụ “Quảng Bình” sẽ đưa bạn tới Quảng Trị.</p>
+      <div class="pick-region" role="group" aria-label="Chọn nhanh theo miền">
+        <span>Hoặc chọn miền</span>
+        <button class="chip" data-region="bac">Miền Bắc</button>
+        <button class="chip" data-region="trung">Miền Trung</button>
+        <button class="chip" data-region="nam">Miền Nam</button>
+      </div>
+      <ul class="trust">
+        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Gọi ngay trên web</li>
+        <li><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>Không cần số điện thoại</li>
+        <li><svg viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c5 0 9 4.5 10 7a14 14 0 0 1-3.2 4.2M6.6 6.6C4.4 8 2.9 10.2 2 12c1 2.5 5 7 10 7a9.6 9.6 0 0 0 4.4-1.1"/></svg>Không ghi âm</li>
+      </ul>
+    </div>
+
+    <div class="map-box" id="mapBox" data-level="country">
+      <div class="map-svg"></div>
+      <div class="crumb" id="crumb" aria-label="Vị trí trên bản đồ"></div>
+      <div class="isl-tag" data-k="hoangsa"><i></i>QĐ. Hoàng Sa</div>
+      <div class="isl-tag" data-k="truongsa"><i></i>QĐ. Trường Sa</div>
+      <div class="map-tip" id="mapTip" hidden></div>
+      <div class="legend"><span><span class="live"></span>Có người trực tối nay</span><span><span class="ring"></span>Chưa có người trực</span></div>
+      <div class="zoombar" role="group" aria-label="Điều khiển bản đồ">
+        <button data-zoom="in" aria-label="Phóng to"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button data-zoom="out" aria-label="Thu nhỏ"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+        <button data-zoom="all" aria-label="Xem toàn quốc"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
+      <button class="minimap" aria-label="Xem toàn quốc"><svg></svg><span>Toàn quốc</span></button>
+      <p class="map-help">Rê chuột vào một miền · cuộn để phóng to · kéo để di chuyển</p>
+    </div>
+
+    <aside class="panel" id="panel" aria-live="polite" aria-label="Thông tin miền và tỉnh"></aside>
+    <p class="sos-line">Đang gặp nguy hiểm? <a href="tel:115">Gọi 115</a> — ULISTEN không phải đường dây khẩn cấp.</p>
+  </div>
+
+  <section class="sec" id="cach-hoat-dong">
+    <p class="eyebrow">Cách hoạt động</p>
+    <h2>Chạm, hẹn, rồi <em>trò chuyện.</em></h2>
+    <div class="steps">
+      <article class="card step"><span class="num">01 · Chạm</span><h3>Chọn quê của bạn</h3><p>Mở bản đồ giọng quê, chọn tỉnh và nghe một giọng nói quen thuộc.</p><div class="step-vis v1"><svg viewBox="80 150 280 200" aria-hidden="true"></svg></div></article>
+      <article class="card step"><span class="num">02 · Hẹn</span><h3>Chọn người và giờ</h3><p>Chọn người lắng nghe phù hợp và một khung giờ tối nay. Bạn không phải chủ động gọi người lạ.</p>
+        <div class="step-vis v2"><div class="row"><span class="chip on">Cùng tỉnh</span><span class="chip">Cùng miền</span><span class="chip">Bất kỳ</span></div><div class="row slots4"><span class="chip off">20:30</span><span class="chip">21:00</span><span class="chip sel">21:30</span><span class="chip">22:00</span></div></div></article>
+      <article class="card step"><span class="num">03 · Trò chuyện</span><h3>Ngay trên trang web</h3><p>Khoảng 20 phút, có người lắng nghe. Không phán xét, không phải gồng lên rằng mọi thứ vẫn ổn.</p>
+        <div class="step-vis v3"><span class="av av-a">T</span><div><b>Chị Thu · giọng Hà Tĩnh</b><small>Đang trò chuyện · 08:42</small></div><span class="end-dot"><svg viewBox="0 0 24 24"><path d="M3 13.5c5-4.2 13-4.2 18 0l-1.9 2.7a1.2 1.2 0 0 1-1.5.4l-2.7-1.3a1.2 1.2 0 0 1-.7-1.1v-1.7a11.5 11.5 0 0 0-4.4 0v1.7a1.2 1.2 0 0 1-.7 1.1l-2.7 1.3a1.2 1.2 0 0 1-1.5-.4z"/></svg></span></div></article>
+    </div>
+  </section>
+
+  <section class="sec sec-voices" id="giong-que">
+    <div class="split">
+      <div><p class="eyebrow">Một câu nói, nhiều giọng quê</p><h2>Cùng một lời hỏi han, <em>mỗi nơi một âm sắc.</em></h2></div>
+      <p class="lead">Tụi mình nhờ các bạn ở nhiều tỉnh thu âm cùng một câu nói. Hãy nghe thử — có thể bạn sẽ nhận ra giọng quê mình trước cả khi đọc tên tỉnh.</p>
+    </div>
+    <div class="line-card" id="lineCard"></div>
+    <div class="voices" id="voiceGrid"></div>
+  </section>
+
+  <section class="sec" id="nguoi-lang-nghe">
+    <div class="split end"><div><p class="eyebrow">Người lắng nghe</p><h2>Không chỉ là người cùng quê. <em>Là người được đào tạo.</em></h2></div>
+      <button class="btn btn-g" data-modal="join">Trở thành người lắng nghe</button></div>
+    <div class="train">
+      <article class="card"><span class="ic-c"><svg viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5.5H5.5A1.5 1.5 0 0 1 4 19zM20 15h-3v5.5h1.5A1.5 1.5 0 0 0 20 19z"/></svg></span><h4>Lắng nghe tích cực</h4><p>Nghe để hiểu, không vội khuyên hay phán xét.</p></article>
+      <article class="card"><span class="ic-c"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></span><h4>Giữ bí mật</h4><p>Hiểu rõ giới hạn bảo mật và cách nói rõ với người gọi.</p></article>
+      <article class="card"><span class="ic-c"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.2"/></svg></span><h4>Nhận diện dấu hiệu</h4><p>Nhận ra khi một buổi tối nặng nề hơn một cuộc trò chuyện.</p></article>
+      <article class="card"><span class="ic-c"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><h4>Chuyển tiếp đúng lúc</h4><p>Kết nối với giám sát viên và hỗ trợ chuyên môn khi cần.</p></article>
+    </div>
+  </section>
+
+  <section class="sec" id="an-toan">
+    <p class="eyebrow">An toàn</p>
+    <h2>Người lắng nghe lắng nghe. <em>Chuyên gia quyết định.</em></h2>
+    <div class="flow">
+      <article class="card"><span class="who">Người lắng nghe</span><h4>Nhận thấy dấu hiệu đáng lo</h4><p>Không xử lý một mình — bấm báo ngay trong cuộc gọi.</p></article>
+      <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <article class="card"><span class="who">Giám sát viên ca trực</span><h4>Đánh giá và quyết định bước tiếp theo</h4><p>Ca trực chỉ mở khi có giám sát viên sẵn sàng.</p></article>
+      <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <article class="card warn"><span class="who">Hỗ trợ chuyên môn</span><h4>Điều phối hỗ trợ hoặc chuyển tiếp</h4><p>Nếu có nguy hiểm tức thời, hỗ trợ khẩn cấp luôn được ưu tiên.</p></article>
+    </div>
+    <ul class="chips-row">
+      <li class="chip">Gọi trên web — hai bên không cần số điện thoại</li>
+      <li class="chip">Không ghi âm</li>
+      <li class="chip">Giới hạn bảo mật được nói rõ trước cuộc gọi</li>
+      <li class="chip">Không liên lạc riêng ngoài nền tảng</li>
+    </ul>
+  </section>
+
+  <section class="sec final">
+    <p class="eyebrow">Tối nay</p>
+    <h2>Có một người cùng quê<br><em>đang chờ được nghe bạn.</em></h2>
+    <a class="btn btn-a" href="#/ban-do">Chọn quê của mình</a>
+  </section>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section class="view" data-view="book" hidden>
+  <div class="wrap book">
+    <ol class="stepper" aria-label="Các bước">
+      <li class="is-done"><span class="n">✓</span><span id="bkStep1">Chạm</span></li>
+      <li class="on" aria-current="step"><span class="n">2</span>Hẹn</li>
+      <li><span class="n">3</span>Trò chuyện</li>
+    </ol>
+    <aside class="filters card" id="filters">
+      <div class="fg"><p class="lb">Giọng người lắng nghe</p><div id="fScope" role="radiogroup"></div></div>
+      <div class="fg"><p class="lb">Người lắng nghe là</p><div class="chips" id="fGender" role="radiogroup">
+        <button class="chip on" data-g="">Ai cũng được</button><button class="chip" data-g="f">Một chị</button><button class="chip" data-g="m">Một anh</button></div></div>
+      <div class="fg"><p class="lb">Bạn muốn nói về <span>(không bắt buộc)</span></p><div class="chips" id="fTopic"></div></div>
+      <div class="fg"><p class="lb">Ngày</p><div class="chips" id="fDay"><button class="chip on" data-d="0">Tối nay</button><button class="chip" data-d="1">Tối mai</button></div></div>
+    </aside>
+    <div class="book-main">
+      <div class="book-head"><h1>Tối nay, ai đang trực?</h1><p>Bấm vào một ô trống để chọn người và giờ. Mỗi cuộc trò chuyện khoảng 20 phút.</p></div>
+      <div class="quick" id="quick"></div>
+      <div class="grid" id="grid" role="grid" aria-label="Người lắng nghe và khung giờ"></div>
+      <div class="glegend"><span><i class="lg-f"></i>Còn trống</span><span><i class="lg-b"></i>Đã kín</span><span><i class="lg-s"></i>Bạn đã chọn</span><span>— không trực giờ này</span></div>
+    </div>
+    <div class="bar" id="bkBar" hidden></div>
+  </div>
+</section>
+
+<!-- ============ WAITING ROOM ============ -->
+<section class="view" data-view="wait" hidden>
+  <div class="wrap wait" id="waitRoot"></div>
+</section>
+
+<!-- ============ CALL ============ -->
+<section class="view" data-view="call" hidden>
+  <div class="call" id="callRoot"></div>
+</section>
+
+<!-- ============ AFTER CALL ============ -->
+<section class="view" data-view="done" hidden>
+  <div class="wrap done" id="doneRoot"></div>
+</section>
+
+</main>
+
+<footer class="foot" id="foot">
+  <span><b>ULISTEN</b> · Đội Homies · Trường Đại học Ngoại ngữ – ĐHQGHN · Bản demo, dữ liệu người lắng nghe là minh hoạ</span>
+  <span>Bản đồ 34 tỉnh, thành theo Nghị quyết 202/2025/QH15 · hình học gốc @svg-maps/vietnam (CC BY 4.0) · Khẩn cấp: <a href="tel:115">115</a></span>
+</footer>
+
+<div class="modal" id="modal" hidden><div class="modal-bg" data-close></div><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="map-data.js"></script>
+<script src="data.js"></script>
+<script src="map.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
