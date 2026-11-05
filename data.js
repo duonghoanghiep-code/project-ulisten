@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ULISTEN — dữ liệu nội dung
+   ULISTEN – dữ liệu nội dung
    Nhóm chỉ cần sửa file này để cập nhật giọng quê, người lắng nghe, câu nói chung.
    ========================================================================== */
 
@@ -26,7 +26,7 @@ window.VOICES_SOON = ['hanoi', 'nghean', 'hue', 'cantho'];
 window.SLOTS = ['20:00', '20:30', '21:00', '21:30', '22:00', '22:30'];
 window.HOURS = { open: 20, close: 23 };
 
-/* Người lắng nghe — DỮ LIỆU MINH HOẠ cho bản demo.
+/* Người lắng nghe – DỮ LIỆU MINH HOẠ cho bản demo.
    slots: f = còn trống, b = đã kín, - = không trực. Thứ tự theo SLOTS. */
 window.LISTENERS = [
   { id: 'thu',   name: 'Chị Thu',   g: 'f', year: 3, prov: 'hatinh', town: 'Hồng Lĩnh',   topics: ['Nhớ nhà', 'Việc học'], intro: 'Năm nhất mình cũng từng khóc vì nhớ nhà.', slots: 'bbffff', tmr: 'ffbf-f' },
