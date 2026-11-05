@@ -12,7 +12,7 @@ window.COMMON_LINE = 'Anh/Chị luôn sẵn lòng lắng nghe em!';
 window.VOICES = {
   hatinh: { file: 'ha-tinh.m4a', by: 'Bạn Hà Tĩnh' },
   nghean: { file: 'nghe-an.m4a', by: 'Bạn Nghệ An' },
-  thanhhoa: { file: 'thanh-hoa.mp4', by: 'Bạn Thanh Hóa' },
+  thanhhoa: { file: 'thanh-hoa.m4a', by: 'Bạn Thanh Hóa' },
   // Tỉnh có nhiều giọng: dùng [ ... ] và đặt nhãn cho từng giọng
   hcm: [
     { file: 'tp-hcm-nu.m4a',  label: 'Giọng nữ' },
