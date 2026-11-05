@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ULISTEN — ứng dụng (router, bản đồ, đặt hẹn, phòng chờ, cuộc gọi)
+   ULISTEN – ứng dụng (router, bản đồ, đặt hẹn, phòng chờ, cuộc gọi)
    ========================================================================== */
 (function () {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -82,7 +82,7 @@
         audio.src = v.file; audio.currentTime = 0;
         audio.ontimeupdate = () => tick(audio.currentTime, audio.duration);
         audio.onended = () => this.stop();
-        audio.play().catch(() => { toast('Chưa có tệp ghi âm — nhóm thêm file vào thư mục audio/'); simulate(); });
+        audio.play().catch(() => { toast('Chưa có tệp ghi âm – nhóm thêm file vào thư mục audio/'); simulate(); });
       } else simulate();
     },
     stop() {
@@ -231,7 +231,7 @@
       const btn = $('#recBtn', c), bars = $$('#recMeter i', c);
       btn.addEventListener('click', async () => {
         if (rec && rec.state === 'recording') { rec.stop(); return; }
-        try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (err) { toast('Không mở được micro — hãy cho phép trình duyệt dùng micro.'); return; }
+        try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (err) { toast('Không mở được micro – hãy cho phép trình duyệt dùng micro.'); return; }
         const ac = new (window.AudioContext || window.webkitAudioContext)(); ana = ac.createAnalyser(); ana.fftSize = 64; ac.createMediaStreamSource(stream).connect(ana);
         const buf = new Uint8Array(ana.frequencyBinCount);
         rec = new MediaRecorder(stream); chunks = []; rec.ondataavailable = e => chunks.push(e.data);
@@ -245,7 +245,7 @@
   function openJoin() {
     modal(`<p class="eyebrow">Người lắng nghe</p><h3 id="modalTitle">Năm nhất của bạn từng khó khăn?</h3><p>Hãy là giọng nói mà bạn từng cần đến. Người lắng nghe là sinh viên năm 2–4, được giới thiệu qua hội đồng hương hoặc câu lạc bộ, phỏng vấn và hoàn thành khoá đào tạo của U-Care trước khi nhận ca.</p>
       <ul style="color:var(--ink-2);font-size:14.5px;line-height:1.9;padding-left:18px;margin:8px 0 0"><li>Tối đa 2 ca mỗi tuần, có giám sát và họp nhóm hằng tuần</li><li>Chứng nhận đào tạo và giờ tình nguyện</li><li>Không bao giờ phải xử lý một mình</li></ul>
-      <div class="m-acts"><button class="btn btn-a" data-close onclick="setTimeout(()=>document.dispatchEvent(new CustomEvent('ul:toast',{detail:'Tụi mình sẽ mở đơn đăng ký sớm — cảm ơn bạn!'})),60)">Mình muốn tham gia</button></div>`);
+      <div class="m-acts"><button class="btn btn-a" data-close onclick="setTimeout(()=>document.dispatchEvent(new CustomEvent('ul:toast',{detail:'Tụi mình sẽ mở đơn đăng ký sớm – cảm ơn bạn!'})),60)">Mình muốn tham gia</button></div>`);
   }
   document.addEventListener('ul:toast', e => toast(e.detail));
   document.addEventListener('click', e => { const s = e.target.closest('[data-scroll]'); if (!s) return; e.preventDefault(); const go = () => document.getElementById(s.dataset.scroll).scrollIntoView({ behavior: 'smooth' }); if (route().view !== 'home' || map.level !== 'country') { nav('#/'); setTimeout(go, 350); } else go(); });
@@ -282,7 +282,7 @@
     const head = `<div class="gr head" role="row"><div class="gh" role="columnheader">Người lắng nghe</div>${SLOTS.map(s => `<div class="gh" role="columnheader">${s}</div>`).join('')}</div>`;
     const rows = list.map(l => { const sl = slotsOf(l, B.day), picked = B.pick && B.pick.id === l.id;
       return `<div class="gr${picked ? ' picked' : ''}" role="row"><div class="who" role="rowheader"><span class="av ${avCls(l.id)}">${l.name.split(' ').pop()[0]}</span><div class="grow"><div class="nm">${esc(l.name)}</div><div class="intro">“${esc(l.intro)}”</div><div class="tags"><span class="tag">Năm ${l.year}</span><span class="tag">${esc(PROV[l.prov].n)}</span>${l.topics.map(t => `<span class="tag${B.topics.has(t) ? ' hit' : ''}">${esc(t)}</span>`).join('')}</div></div></div>` +
-        sl.map((s, i) => { const sel = picked && B.pick.i === i; if (s === 'f') return `<button class="cell ${sel ? 's' : 'f'}" role="gridcell" data-pick="${l.id}" data-i="${i}" aria-pressed="${sel}" aria-label="${esc(l.name)} lúc ${SLOTS[i]}">${sel ? '✓ ' : ''}${SLOTS[i]}</button>`; if (s === 'b') return `<div class="cell b" role="gridcell" aria-label="${SLOTS[i]} đã kín"><span class="slot-m">${SLOTS[i]}&nbsp;</span>kín</div>`; if (s === 'p') return `<div class="cell o past" role="gridcell" aria-label="${SLOTS[i]} đã qua">đã qua</div>`; return `<div class="cell o" role="gridcell">—</div>`; }).join('') + `</div>`; }).join('');
+        sl.map((s, i) => { const sel = picked && B.pick.i === i; if (s === 'f') return `<button class="cell ${sel ? 's' : 'f'}" role="gridcell" data-pick="${l.id}" data-i="${i}" aria-pressed="${sel}" aria-label="${esc(l.name)} lúc ${SLOTS[i]}">${sel ? '✓ ' : ''}${SLOTS[i]}</button>`; if (s === 'b') return `<div class="cell b" role="gridcell" aria-label="${SLOTS[i]} đã kín"><span class="slot-m">${SLOTS[i]}&nbsp;</span>kín</div>`; if (s === 'p') return `<div class="cell o past" role="gridcell" aria-label="${SLOTS[i]} đã qua">đã qua</div>`; return `<div class="cell o" role="gridcell">–</div>`; }).join('') + `</div>`; }).join('');
     const wider = B.scope === 'prov' ? pool('region').length - pool('prov').length : B.scope === 'region' ? pool('any').length - pool('region').length : 0;
     const more = wider > 0 ? `<div class="more"><span>${wider} người khác ${B.scope === 'prov' ? 'ở ' + R[p.r].name : 'ở các miền khác'}</span><button data-scope="${B.scope === 'prov' ? 'region' : 'any'}">Mở rộng để xem thêm khung giờ →</button></div>` : '';
     $('#grid').innerHTML = list.length ? head + rows + more : `<div class="none">Không có ai khớp bộ lọc. <button class="chip" data-scope="any" style="margin-left:8px">Xem tất cả người lắng nghe</button></div>`;
@@ -291,7 +291,7 @@
   function drawBar() {
     const bar = $('#bkBar'); if (!B.pick) { bar.hidden = true; return; }
     const l = L.find(x => x.id === B.pick.id);
-    bar.innerHTML = `<span class="av ${avCls(l.id)}" style="width:46px;height:46px;font-size:18px">${l.name.split(' ').pop()[0]}</span><div class="grow"><b>${esc(l.name)} · giọng ${esc(PROV[l.prov].n)} · ${SLOTS[B.pick.i]} ${B.day ? 'tối mai' : 'tối nay'}</b><small>Gọi ngay trên web. Đến giờ, trang sẽ báo để bạn bấm “Vào cuộc gọi” — không cần số điện thoại.</small></div><button class="btn btn-a" id="bkGo">Tiếp tục</button>`;
+    bar.innerHTML = `<span class="av ${avCls(l.id)}" style="width:46px;height:46px;font-size:18px">${l.name.split(' ').pop()[0]}</span><div class="grow"><b>${esc(l.name)} · giọng ${esc(PROV[l.prov].n)} · ${SLOTS[B.pick.i]} ${B.day ? 'tối mai' : 'tối nay'}</b><small>Gọi ngay trên web. Đến giờ, trang sẽ báo để bạn bấm “Vào cuộc gọi” – không cần số điện thoại.</small></div><button class="btn btn-a" id="bkGo">Tiếp tục</button>`;
     bar.hidden = false;
   }
   $('#filters').addEventListener('click', e => {
@@ -334,7 +334,7 @@
     const l = L.find(x => x.id === bk.lid), st = { notif: typeof Notification !== 'undefined' && Notification.permission === 'granted', mic: false };
     root.innerHTML = `<div class="lamp"><svg viewBox="-200 -200 400 400" aria-hidden="true"><defs><linearGradient id="arc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe2a6"/><stop offset="1" stop-color="#e48a45"/></linearGradient></defs><circle r="190" fill="none" stroke="#9fb0e8" stroke-opacity=".07"/><circle r="160" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="5"/><circle id="arcP" r="160" fill="none" stroke="url(#arc)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1005" stroke-dashoffset="1005" transform="rotate(-90)" style="transition:stroke-dashoffset 1s linear"/></svg><div class="face"><div class="t">${SLOTS[bk.slot]}</div><div class="s" id="cd">…</div></div></div>
       <div><p class="eyebrow">Phòng chờ · ${bk.day ? 'tối mai' : 'tối nay'}</p><h1>${esc(l.name)} sẽ trò chuyện với ${esc(bk.nick)} lúc ${SLOTS[bk.slot]}.</h1>
-        <p class="sub">Đến giờ, nút “Vào cuộc gọi” sẽ sáng lên. Không cần nghĩ trước sẽ nói gì — “em mệt quá” cũng là một câu mở đầu rất ổn.</p>
+        <p class="sub">Đến giờ, nút “Vào cuộc gọi” sẽ sáng lên. Không cần nghĩ trước sẽ nói gì – “em mệt quá” cũng là một câu mở đầu rất ổn.</p>
         <div class="checklist">
           <div class="ck${st.notif ? ' ok' : ''}" id="ckN"><span class="n">${st.notif ? '✓' : '1'}</span><div class="grow"><b>Bật thông báo</b><small>Để trang nhắc bạn lúc ${SLOTS[bk.slot]}, kể cả khi đang ở tab khác.</small></div>${st.notif ? '' : '<button class="btn btn-g btn-s" id="btnN">Bật</button>'}</div>
           <div class="ck" id="ckM"><span class="n">2</span><div class="grow"><b>Kiểm tra micro</b><small id="micMsg">Nói thử một câu, vạch xanh sẽ nhảy theo giọng bạn.</small></div><div class="meter" id="micMeter" hidden>${'<i></i>'.repeat(12)}</div><button class="btn btn-g btn-s" id="btnM">Kiểm tra</button></div>
@@ -375,17 +375,17 @@
       <div class="ava" aria-hidden="true"><div class="r r1"></div><div class="r r2"></div><div class="r r3"></div><div class="core">${l.name.split(' ').pop()[0]}</div></div>
       <div class="nm">${esc(l.name)}</div><div class="meta">giọng ${esc(PROV[l.prov].n)} · năm ${l.year}</div>
       <div class="clock" id="clk" aria-live="off">00:00</div><div class="speaking" id="spk" aria-live="polite">Đang kết nối…</div>
-      <aside class="side-note card"><div class="row">${ICON.shield}<div><b style="font-weight:400">Ca trực có giám sát</b><div style="font-size:13px;color:var(--ink-3)">Giám sát viên đang sẵn sàng</div></div></div><hr><p>Bạn có thể dừng bất cứ lúc nào. Không cần giải thích.</p><p>Cuộc gọi chỉ có giọng nói — không bật camera.</p></aside>
+      <aside class="side-note card"><div class="row">${ICON.shield}<div><b style="font-weight:400">Ca trực có giám sát</b><div style="font-size:13px;color:var(--ink-3)">Giám sát viên đang sẵn sàng</div></div></div><hr><p>Bạn có thể dừng bất cứ lúc nào. Không cần giải thích.</p><p>Cuộc gọi chỉ có giọng nói – không bật camera.</p></aside>
       <button class="help-btn" id="help">${ICON.hand}<span><b style="font-weight:400">Mình cần giúp ngay</b><small>Nối giám sát viên · số khẩn cấp 115</small></span></button>
       <div class="ctrl"><button class="cb" id="cMute" aria-pressed="false"><span class="o">${ICON.mic}</span><span class="lb2">Tắt tiếng</span></button><button class="cb" id="cVol" aria-expanded="false"><span class="o">${ICON.vol}</span>Âm lượng</button><button class="cb end" id="cEnd"><span class="o">${ICON.end}Kết thúc</span></button><div class="vol" id="volBox" hidden><input type="range" min="0" max="100" value="80" aria-label="Âm lượng"></div></div>`;
     const rings = $$('.ava .r', root), spk = $('#spk');
     const start = async () => {
       let an = null, buf;
       try { C.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); C.ac = new (window.AudioContext || window.webkitAudioContext)(); an = C.ac.createAnalyser(); an.fftSize = 256; C.ac.createMediaStreamSource(C.stream).connect(an); buf = new Uint8Array(an.fftSize); }
-      catch (e) { toast('Chưa dùng được micro — bạn vẫn có thể nghe. Hãy cho phép micro để nói.'); }
+      catch (e) { toast('Chưa dùng được micro – bạn vẫn có thể nghe. Hãy cho phép micro để nói.'); }
       setTimeout(() => {
         C.t0 = Date.now(); spk.textContent = `${l.name} đang nghe bạn`;
-        C.timer = setInterval(() => { const s = Math.floor((Date.now() - C.t0) / 1000); $('#clk').textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); if (s === 18 * 60) toast('Còn khoảng 2 phút — bạn có thể hẹn lần sau.'); }, 500);
+        C.timer = setInterval(() => { const s = Math.floor((Date.now() - C.t0) / 1000); $('#clk').textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); if (s === 18 * 60) toast('Còn khoảng 2 phút – bạn có thể hẹn lần sau.'); }, 500);
         let quiet = 0;
         const f = () => {
           let lv = 0; if (an && !C.muted) { an.getByteTimeDomainData(buf); let s = 0; for (const v of buf) s += (v - 128) ** 2; lv = Math.min(1, Math.sqrt(s / buf.length) / 25); }
@@ -458,13 +458,13 @@
         else { map.go('country', null, { animate: prevView === 'home' }); if (r.map && prevView !== 'home') { } }
         tip.hidden = true;
       });
-      document.title = r.prov && PROV[r.prov] ? `${PROV[r.prov].n} — ULISTEN` : r.region && R[r.region] ? `${R[r.region].name} — ULISTEN` : 'ULISTEN — Đường dây ấm tiếng quê';
+      document.title = r.prov && PROV[r.prov] ? `${PROV[r.prov].n} – ULISTEN` : r.region && R[r.region] ? `${R[r.region].name} – ULISTEN` : 'ULISTEN – Đường dây ấm tiếng quê';
     } else {
       scrollTo({ top: 0 });
-      if (r.view === 'book') { renderBook(r.prov, r.params); document.title = 'Hẹn người lắng nghe — ULISTEN'; }
-      if (r.view === 'wait') { renderWait(); document.title = 'Phòng chờ — ULISTEN'; }
-      if (r.view === 'call') { renderCall(); document.title = 'Đang trò chuyện — ULISTEN'; }
-      if (r.view === 'done') { renderDone(); document.title = 'Cảm ơn bạn — ULISTEN'; }
+      if (r.view === 'book') { renderBook(r.prov, r.params); document.title = 'Hẹn người lắng nghe – ULISTEN'; }
+      if (r.view === 'wait') { renderWait(); document.title = 'Phòng chờ – ULISTEN'; }
+      if (r.view === 'call') { renderCall(); document.title = 'Đang trò chuyện – ULISTEN'; }
+      if (r.view === 'done') { renderDone(); document.title = 'Cảm ơn bạn – ULISTEN'; }
     }
     // header CTA reflects an existing booking
     const bk = store.get('booking'), cta = $('#ctaTop');
