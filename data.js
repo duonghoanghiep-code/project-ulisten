@@ -11,6 +11,7 @@ window.COMMON_LINE = 'Anh/Chị luôn sẵn lòng lắng nghe em!';
    Khoá là mã tỉnh mới (xem js/map-data.js). Tỉnh nào chưa có file thì để trống. */
 window.VOICES = {
   hatinh: { file: 'ha-tinh.m4a', by: 'Bạn Hà Tĩnh' },
+  nghean: { file: 'nghe-an.m4a', by: 'Bạn Nghệ An' },
   // Tỉnh có nhiều giọng: dùng [ ... ] và đặt nhãn cho từng giọng
   hcm: [
     { file: 'tp-hcm-nu.m4a',  label: 'Giọng nữ' },
