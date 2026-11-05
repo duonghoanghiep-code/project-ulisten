@@ -5,7 +5,7 @@
 
 /* Câu nói chung đã thu âm bằng nhiều giọng tỉnh.
    TODO(nhóm): thay bằng đúng câu nhóm đã thu. */
-window.COMMON_LINE = 'Anh/Chị luôn sẵn lòng lắng nghe em!';
+window.COMMON_LINE = 'Chào em!';
 
 /* Tệp ghi âm theo tỉnh (đặt file vào thư mục /audio).
    Khoá là mã tỉnh mới (xem js/map-data.js). Tỉnh nào chưa có file thì để trống. */
