@@ -65,12 +65,16 @@
   }
 
   /* ---------- audio player (shared) ---------- */
+  // VOICES[k] may be one object or a list of voices (e.g. female + male)
+  const vlist = k => { const v = VOICES[k]; return !v ? [] : Array.isArray(v) ? v : [v]; };
+  const vparse = id => { const [k, i] = String(id).split('.'); return { k, v: vlist(k)[+i || 0] || {} }; };
+  const vname = id => { const { k, v } = vparse(id); return PROV[k].n + (v.label ? ' · ' + v.label.toLowerCase() : ''); };
   const audio = new Audio(); audio.preload = 'none';
   const Player = {
     cur: null, sim: null,
     toggle(k, btn) {
       if (this.cur === k) { this.stop(); return; }
-      this.stop(); this.cur = k; const v = VOICES[k];
+      this.stop(); this.cur = k; const v = vparse(k).v;
       $$(`[data-voice="${k}"]`).forEach(b => { b.innerHTML = ICON.pause; b.setAttribute('aria-label', 'Tạm dừng'); b.closest('.vc')?.classList.add('playing'); });
       const tick = (t, d) => $$(`.wv[data-voice-wave="${k}"]`).forEach(w => { const bars = w.children, n = bars.length, p = d ? t / d : 0; for (let i = 0; i < n; i++) bars[i].classList.toggle('p', i / n < p); w.parentElement.querySelector('.tm') && (w.parentElement.querySelector('.tm').textContent = '0:' + String(Math.floor(t)).padStart(2, '0')); });
       const simulate = () => { const d = 4, t0 = performance.now(); const f = () => { const t = (performance.now() - t0) / 1000; tick(Math.min(t, d), d); if (t < d && this.cur === k) this.sim = requestAnimationFrame(f); else if (this.cur === k) this.stop(); }; f(); };
@@ -84,11 +88,11 @@
     stop() {
       const k = this.cur; this.cur = null; audio.pause(); cancelAnimationFrame(this.sim);
       if (!k) return;
-      $$(`[data-voice="${k}"]`).forEach(b => { b.innerHTML = ICON.play; b.setAttribute('aria-label', 'Nghe giọng ' + PROV[k].n); b.closest('.vc')?.classList.remove('playing'); });
+      $$(`[data-voice="${k}"]`).forEach(b => { b.innerHTML = ICON.play; b.setAttribute('aria-label', 'Nghe giọng ' + vname(k)); b.closest('.vc')?.classList.remove('playing'); });
       $$(`.wv[data-voice-wave="${k}"] i`).forEach(i => i.classList.remove('p'));
     }
   };
-  function waveHTML(k, n = 36) { let s = 7 + k.length * 13, h = ''; for (let i = 0; i < n; i++) { s = (s * 9301 + 49297) % 233280; const env = .35 + .65 * Math.sin(Math.PI * (i + .5) / n); h += `<i style="height:${Math.max(4, (.3 + .7 * s / 233280) * env * 30)}px"></i>`; } return `<div class="wv" data-voice-wave="${k}" aria-hidden="true">${h}</div>`; }
+  function waveHTML(k, n = 36) { let s = 7 + String(k).length * 13, h = ''; for (let i = 0; i < n; i++) { s = (s * 9301 + 49297) % 233280; const env = .35 + .65 * Math.sin(Math.PI * (i + .5) / n); h += `<i style="height:${Math.max(4, (.3 + .7 * s / 233280) * env * 30)}px"></i>`; } return `<div class="wv" data-voice-wave="${k}" aria-hidden="true">${h}</div>`; }
   document.addEventListener('click', e => { const b = e.target.closest('[data-voice]'); if (b) { e.stopPropagation(); Player.toggle(b.dataset.voice, b); } });
 
   /* ---------- map ---------- */
@@ -147,7 +151,7 @@
       <div class="hd"><p class="eyebrow">Tỉnh · ${R[p.r].name}</p><div class="nav2"><button data-prov="${prev.k}" aria-label="Tỉnh trước: ${esc(prev.n)}">← ${esc(prev.n)}</button><span>|</span><button data-prov="${next.k}" aria-label="Tỉnh sau: ${esc(next.n)}">${esc(next.n)} →</button></div></div>
       <div class="hd" style="align-items:flex-end"><h2>${esc(p.n)}</h2>${ls.length ? `<span class="chip on"><span class="live"></span>${ls.length} người đang trực</span>` : `<span class="chip">Chưa có người trực</span>`}</div>
       <p class="merged">${p.old.length > 1 ? 'Gồm ' + p.old.join(', ') + ' cũ' : 'Không thay đổi sau sáp nhập'}</p>
-      ${v ? `<div class="voice"><div class="vlabel">Nghe giọng ${esc(p.n)}</div><div class="q">“${esc(COMMON_LINE)}”</div><div class="player"><button class="play" data-voice="${k}" aria-label="Nghe giọng ${esc(p.n)}">${ICON.play}</button>${waveHTML(k, 40)}<span class="tm">0:00</span></div></div>`
+      ${v ? `<div class="voice"><div class="vlabel">Nghe giọng ${esc(p.n)}</div><div class="q">“${esc(COMMON_LINE)}”</div>${vlist(k).map((vv, j) => `<div class="player" style="margin-top:${j ? 12 : 0}px"><button class="play" data-voice="${k}.${j}" aria-label="Nghe giọng ${esc(vname(k + '.' + j))}">${ICON.play}</button>${vv.label ? `<span class="vtag">${esc(vv.label)}</span>` : ''}${waveHTML(k + '.' + j, vlist(k).length > 1 ? 30 : 40)}<span class="tm">0:00</span></div>`).join('')}</div>`
            : `<div class="empty-note">Chưa có lời chào thu sẵn bằng giọng ${esc(p.n)}.${VOICES[near] ? ` Nghe thử giọng gần nhất: <b>${esc(PROV[near].n)}</b>.` : ''} <button class="chip" data-modal="record" style="margin-top:10px">Góp giọng quê ${esc(p.n)}</button></div>`}
       ${ls.length ? `<p class="sub">Người lắng nghe tối nay</p><div class="lst">${ls.map(l => { const f = slotsOf(l, todayOver() ? 1 : 0).indexOf('f'); return `<button class="li" data-book="${k}" data-l="${l.id}"><span class="av ${avCls(l.id)}">${l.name.split(' ').pop()[0]}</span><div class="grow"><div class="nm">${esc(l.name)}</div><div class="mt">Năm ${l.year} · ${esc(l.town)}</div></div><span class="chip">${f >= 0 ? (todayOver() ? 'tối mai ' : 'rảnh từ ') + SLOTS[f] : 'kín lịch'}</span></button>`; }).join('')}</div>
         <div class="acts"><a class="btn btn-a" href="#/hen/${k}">Chọn người lắng nghe</a>${e ? `<button class="btn btn-g" data-quick="${k}">${ICON.bolt.replace('class="bolt"', 'width="17" height="17" fill="none" stroke="#ffe0a3" stroke-width="1.7"')}Ghép nhanh</button>` : ''}</div>`
@@ -198,9 +202,9 @@
 
   /* ---------- home sections ---------- */
   function renderVoices() {
-    const first = Object.keys(VOICES)[0];
-    $('#lineCard').innerHTML = `<button class="play" data-voice="${first}" aria-label="Nghe giọng ${esc(PROV[first].n)}">${ICON.play}</button><div style="flex:1"><div class="q">“${esc(COMMON_LINE)}”</div><div class="now">Bấm để nghe · giọng ${esc(PROV[first].n)}</div></div>${waveHTML(first, 46)}`;
-    const cards = Object.keys(VOICES).map(k => { const c = listenersIn(k).length; return `<div class="vc card"><button class="play" data-voice="${k}" aria-label="Nghe giọng ${esc(PROV[k].n)}">${ICON.play}</button><div class="grow"><div class="nm">${esc(PROV[k].n)}</div><div class="s">${R[PROV[k].r].name}${c ? ' · ' + c + ' người đang trực' : ''}</div></div>${c ? '<span class="live"></span>' : ''}</div>`; })
+    const first = Object.keys(VOICES)[0] + '.0';
+    $('#lineCard').innerHTML = `<button class="play" data-voice="${first}" aria-label="Nghe giọng ${esc(vname(first))}">${ICON.play}</button><div style="flex:1"><div class="q">“${esc(COMMON_LINE)}”</div><div class="now">Bấm để nghe · giọng ${esc(vname(first))}</div></div>${waveHTML(first, 46)}`;
+    const cards = Object.keys(VOICES).flatMap(k => vlist(k).map((vv, j) => { const c = listenersIn(k).length; return `<div class="vc card"><button class="play" data-voice="${k}.${j}" aria-label="Nghe giọng ${esc(vname(k + '.' + j))}">${ICON.play}</button><div class="grow"><div class="nm">${esc(PROV[k].n)}${vv.label ? ` <span class="vtag">${esc(vv.label)}</span>` : ''}</div><div class="s">${R[PROV[k].r].name}${c ? ' · ' + c + ' người đang trực' : ''}</div></div>${c ? '<span class="live"></span>' : ''}</div>`; }))
       .concat(VOICES_SOON.filter(k => !VOICES[k]).map(k => `<div class="vc card soon" aria-disabled="true"><span class="play ghost">${ICON.mic}</span><div class="grow"><div class="nm">${esc(PROV[k].n)}</div><div class="s">Đang thu âm</div></div></div>`))
       .concat([`<button class="vc card add" data-modal="record"><span class="play ghost" style="border:1px dashed rgba(248,184,102,.5);background:transparent"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#f8b866" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><div class="grow"><div class="nm">Góp giọng quê bạn</div><div class="s">Thu một câu, khoảng 10 giây</div></div></button>`]);
     $('#voiceGrid').innerHTML = cards.join('');

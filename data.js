@@ -11,7 +11,11 @@ window.COMMON_LINE = 'Hôm nay của bạn thế nào? Kể mình nghe nhé.';
    Khoá là mã tỉnh mới (xem js/map-data.js). Tỉnh nào chưa có file thì để trống. */
 window.VOICES = {
   hatinh: { file: 'ha-tinh.mp3', by: 'Bạn Hà Tĩnh' },
-  hcm:    { file: 'tp-hcm.mp3',  by: 'Bạn TP. Hồ Chí Minh' },
+  // Tỉnh có nhiều giọng: dùng [ ... ] và đặt nhãn cho từng giọng
+  hcm: [
+    { file: 'tp-hcm-nu.mp3',  label: 'Giọng nữ' },
+    { file: 'tp-hcm-nam.mp3', label: 'Giọng nam' },
+  ],
 };
 /* Tỉnh đang thu âm (hiện ở mục "Một câu nói, nhiều giọng quê") */
 window.VOICES_SOON = ['hanoi', 'nghean', 'hue', 'cantho'];
