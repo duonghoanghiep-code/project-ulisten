@@ -1,6 +1,6 @@
 /* ==========================================================================
    ULISTEN – dữ liệu nội dung
-   Nhóm chỉ cần sửa file này để cập nhật giọng quê, người lắng nghe, câu nói chung.
+   Nhóm chỉ cần sửa file này để cập nhật tiếng quê, người lắng nghe, câu nói chung.
    ========================================================================== */
 
 /* Câu nói chung đã thu âm bằng nhiều giọng tỉnh.
@@ -19,7 +19,7 @@ window.VOICES = {
     { file: 'tp-hcm-nam.m4a', label: 'Giọng nam' },
   ],
 };
-/* Tỉnh đang thu âm (hiện ở mục "Một câu nói, nhiều giọng quê") */
+/* Tỉnh đang thu âm (hiện ở mục "Một câu nói, nhiều tiếng quê") */
 window.VOICES_SOON = ['hanoi', 'nghean', 'hue', 'cantho'];
 
 /* Khung giờ mỗi tối */
