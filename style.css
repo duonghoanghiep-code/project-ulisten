@@ -75,8 +75,8 @@ button.chip:hover{border-color:var(--line-2);color:var(--ink-1)}
 /* ---------- hero + map ---------- */
 .hero{position:relative;height:100vh;height:100svh;min-height:700px;max-height:1000px;overflow:hidden;
   background:radial-gradient(70% 80% at 68% 46%,#1c2563 0%,#131a4c 46%,#0c1236 100%)}
-.hero-copy{position:absolute;left:var(--gut);top:calc(var(--top-h) + 7vh);width:min(480px,40vw);z-index:4;transition:opacity .45s var(--ease),transform .55s var(--ease)}
-.hero h1{font-size:clamp(36px,3.6vw,52px);line-height:1.1;margin:18px 0 14px}
+.hero-copy{position:absolute;left:var(--gut);top:calc(var(--top-h) + 7vh);width:min(560px,42vw);z-index:4;transition:opacity .45s var(--ease),transform .55s var(--ease)}
+.hero h1{font-size:clamp(30px,3.1vw,46px);line-height:1.1;margin:18px 0 14px}
 .tagline{font-size:15px;color:var(--ink-3);margin:0 0 30px}
 .search{position:relative;display:flex;align-items:center;gap:12px;height:58px;padding:0 16px 0 20px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line-2);transition:border-color .2s,background .2s,box-shadow .2s}
 .search:focus-within{border-color:var(--amb-line);background:rgba(255,255,255,.09);box-shadow:0 0 0 5px rgba(248,184,102,.1)}
@@ -491,3 +491,7 @@ button.vc:hover{border-color:var(--line-2);transform:translateY(-2px)}
 }
 
 .vtag{display:inline-block;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--amb-soft);color:var(--amb-l);border:1px solid rgba(248,184,102,.3);white-space:nowrap;font-weight:300;vertical-align:middle}
+
+/* slogan lục bát: giữ mỗi vế trên một dòng */
+.hero h1 .ln{white-space:nowrap}
+@media (max-width:520px){.hero h1{font-size:min(30px,7.4vw)}}

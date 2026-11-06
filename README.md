@@ -44,14 +44,14 @@ Tên file ghi âm đang chờ sẵn: `audio/ha-tinh.mp3`, `audio/tp-hcm.mp3`. Ch
 - **Chọn người lắng nghe:** lưới người × giờ; bộ lọc cùng tỉnh, cùng miền hoặc giọng bất kỳ (kèm số người); chị hoặc anh; chủ đề muốn nói; tối nay hoặc tối mai. Có nút "Ghép nhanh". Khung giờ đã qua tự khoá lại.
 - **Phòng chờ:** đồng hồ đếm ngược, bật thông báo của trình duyệt, kiểm tra micro thật (vạch sóng nhảy theo giọng), đổi giờ hoặc huỷ hẹn.
 - **Cuộc gọi trên web:** chỉ giọng nói, có nút tắt tiếng, âm lượng, kết thúc. Nút **"Mình cần giúp ngay"** nối giám sát viên và hiện số 115.
-- **Sau cuộc gọi:** thang cảm nhận ẩn danh, tuỳ chọn giới thiệu tới U-Care, nút hẹn lần sau.
+- **Sau cuộc gọi:** thang cảm nhận ẩn danh, tuỳ chọn giới thiệu tới chuyên gia đối tác, nút hẹn lần sau.
 - **Góp giọng quê:** thu âm 15 giây ngay trên trình duyệt (bản demo, chỉ phát lại trên máy người dùng).
 - Chạy tốt trên điện thoại; hỗ trợ bàn phím và trình đọc màn hình; tự giảm chuyển động khi người dùng bật "giảm chuyển động" trong hệ điều hành.
 
 ## Giới hạn của bản demo — đọc trước khi trình bày
 
 1. **Cuộc gọi chưa nối hai người thật.** Micro của người dùng hoạt động thật, nhưng phía người lắng nghe đang được mô phỏng. Muốn gọi thật cần một dịch vụ gọi qua trình duyệt (WebRTC), ví dụ LiveKit, Daily hoặc Agora; các dịch vụ này đều có gói miễn phí cho lượng dùng nhỏ. Chỗ cần cắm vào là hàm `renderCall()` trong `js/app.js`.
-2. **Lịch hẹn chỉ lưu trên trình duyệt của người dùng** (localStorage), chưa có máy chủ. Người lắng nghe và giám sát viên chưa nhìn thấy lịch hẹn. Bản thật cần cơ sở dữ liệu (ví dụ Supabase hoặc Firebase) và một cổng riêng cho người lắng nghe và U-Care.
+2. **Lịch hẹn chỉ lưu trên trình duyệt của người dùng** (localStorage), chưa có máy chủ. Người lắng nghe và giám sát viên chưa nhìn thấy lịch hẹn. Bản thật cần cơ sở dữ liệu (ví dụ Supabase hoặc Firebase) và một cổng riêng cho người lắng nghe, giám sát viên và chuyên gia đối tác.
 3. **Thông báo nhắc giờ** chỉ hiện khi tab còn mở. Muốn nhắc cả khi đã đóng tab thì cần Web Push và máy chủ.
 4. **Tên người lắng nghe, số người đang trực, khung giờ** đều là dữ liệu minh hoạ.
 

@@ -243,7 +243,7 @@
     });
   }
   function openJoin() {
-    modal(`<p class="eyebrow">Người lắng nghe</p><h3 id="modalTitle">Năm nhất của bạn từng khó khăn?</h3><p>Hãy là giọng nói mà bạn từng cần đến. Người lắng nghe là sinh viên năm 2–4, được giới thiệu qua hội đồng hương hoặc câu lạc bộ, phỏng vấn và hoàn thành khoá đào tạo của U-Care trước khi nhận ca.</p>
+    modal(`<p class="eyebrow">Người lắng nghe</p><h3 id="modalTitle">Năm nhất của bạn từng khó khăn?</h3><p>Hãy là giọng nói mà bạn từng cần đến. Người lắng nghe là sinh viên năm 2–4, được giới thiệu qua hội đồng hương hoặc câu lạc bộ, phỏng vấn và hoàn thành khoá đào tạo của ULISTEN trước khi nhận ca.</p>
       <ul style="color:var(--ink-2);font-size:14.5px;line-height:1.9;padding-left:18px;margin:8px 0 0"><li>Tối đa 2 ca mỗi tuần, có giám sát và họp nhóm hằng tuần</li><li>Chứng nhận đào tạo và giờ tình nguyện</li><li>Không bao giờ phải xử lý một mình</li></ul>
       <div class="m-acts"><button class="btn btn-a" data-close onclick="setTimeout(()=>document.dispatchEvent(new CustomEvent('ul:toast',{detail:'Tụi mình sẽ mở đơn đăng ký sớm – cảm ơn bạn!'})),60)">Mình muốn tham gia</button></div>`);
   }
@@ -418,10 +418,10 @@
     $('#doneRoot').innerHTML = `<p class="eyebrow">Cảm ơn bạn đã ở đây tối nay</p><h1>Sau cuộc trò chuyện với ${esc(l.name)}, bạn thấy thế nào?</h1>
       <div class="scale" role="group" aria-label="Cảm nhận sau cuộc gọi">${opts.map(([t, v]) => `<button aria-pressed="false" data-v="${v}"><b>${v}</b>${t}</button>`).join('')}</div>
       <p style="font-size:13px;color:var(--ink-3)">Câu trả lời ẩn danh, chỉ dùng để cải thiện dịch vụ.</p>
-      <label class="check"><input type="checkbox" id="ucare"><span>Mình muốn được giới thiệu tới <b>U-Care</b> để trò chuyện sâu hơn với chuyên gia.</span></label>
+      <label class="check"><input type="checkbox" id="ucare"><span>Mình muốn được giới thiệu tới <b>chuyên gia đối tác</b> để trò chuyện sâu hơn với chuyên gia.</span></label>
       <div class="m-acts" style="justify-content:center;max-width:520px;margin:20px auto 0"><a class="btn btn-a" href="#/hen/${l.prov}?l=${l.id}">Hẹn lần sau</a><a class="btn btn-g" href="#/">Về trang chủ</a></div>`;
     $$('.scale button').forEach(b => b.addEventListener('click', () => { $$('.scale button').forEach(x => x.setAttribute('aria-pressed', x === b)); toast('Cảm ơn bạn đã chia sẻ.'); }));
-    $('#ucare').addEventListener('change', e => e.target.checked && toast('Giảng viên U-Care sẽ liên hệ qua ULISTEN trong giờ hành chính.'));
+    $('#ucare').addEventListener('change', e => e.target.checked && toast('Chuyên gia đối tác sẽ liên hệ qua ULISTEN trong giờ hành chính.'));
   }
 
   /* ==========================================================================
