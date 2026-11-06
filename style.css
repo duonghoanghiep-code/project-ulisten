@@ -75,8 +75,8 @@ button.chip:hover{border-color:var(--line-2);color:var(--ink-1)}
 /* ---------- hero + map ---------- */
 .hero{position:relative;height:100vh;height:100svh;min-height:700px;max-height:1000px;overflow:hidden;
   background:radial-gradient(70% 80% at 68% 46%,#1c2563 0%,#131a4c 46%,#0c1236 100%)}
-.hero-copy{position:absolute;left:var(--gut);top:calc(var(--top-h) + 7vh);width:min(820px,42vw);z-index:4;transition:opacity .45s var(--ease),transform .55s var(--ease)}
-.hero h1{font-size:clamp(30px,2.8vw,42px);line-height:1.1;margin:18px 0 14px}
+.hero-copy{position:absolute;left:var(--gut);top:calc(var(--top-h) + 7vh);width:min(860px,53vw);z-index:4;transition:opacity .45s var(--ease),transform .55s var(--ease)}
+.hero h1{font-size:clamp(28px,2.6vw,42px);line-height:1.1;margin:18px 0 14px}
 .tagline{font-size:15px;color:var(--ink-3);margin:0 0 30px}
 .search{position:relative;display:flex;align-items:center;gap:12px;height:58px;padding:0 16px 0 20px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line-2);transition:border-color .2s,background .2s,box-shadow .2s}
 .search:focus-within{border-color:var(--amb-line);background:rgba(255,255,255,.09);box-shadow:0 0 0 5px rgba(248,184,102,.1)}
@@ -99,7 +99,7 @@ button.chip:hover{border-color:var(--line-2);color:var(--ink-1)}
 .sos-line{position:absolute;left:var(--gut);bottom:26px;margin:0;font-size:13.5px;color:var(--ink-3);z-index:4;transition:opacity .4s}
 .sos-line a{color:var(--red);font-weight:400;text-decoration:none}
 
-.map-box{position:absolute;top:var(--top-h);bottom:0;left:46%;right:0;z-index:2;transition:left .6s var(--ease),right .6s var(--ease)}
+.map-box{position:absolute;top:var(--top-h);bottom:0;left:56%;right:0;z-index:2;transition:left .6s var(--ease),right .6s var(--ease)}
 .map-svg{position:absolute;inset:0;overflow:hidden}
 .map-svg svg{position:absolute;inset:0;width:100%;height:100%}
 .vn{touch-action:none;cursor:pointer;overflow:visible}
@@ -420,8 +420,8 @@ button.vc:hover{border-color:var(--line-2);transform:translateY(-2px)}
 /* ---------- responsive ---------- */
 @media (max-width:1180px){
   .links{display:none}
-  .hero-copy{width:min(480px,46vw)}
-  .map-box{left:50%}
+  .hero-copy{width:min(640px,53vw)}
+  .map-box{left:56%}
   .panel{width:400px}
   .hero.explore .map-box{right:calc(400px + var(--gut) + 12px)}
   .train{grid-template-columns:repeat(2,1fr)}
@@ -492,3 +492,7 @@ button.vc:hover{border-color:var(--line-2);transform:translateY(-2px)}
 /* slogan lục bát: giữ mỗi vế trên một dòng */
 .hero h1 .ln{white-space:nowrap}
 @media (max-width:520px){.hero h1{font-size:min(30px,7.4vw)}}
+/* ô tìm kiếm và dòng gợi ý không kéo dài theo cột slogan */
+.hero-copy .search{max-width:460px}
+.hero-copy .hint{max-width:460px}
+@media (max-width:860px){.hero-copy .search,.hero-copy .hint{max-width:none}}
