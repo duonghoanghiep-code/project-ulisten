@@ -193,6 +193,30 @@
     background:var(--amb);box-shadow:0 0 10px var(--amb);transform:scaleX(0);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
   .links a.active{color:var(--amb-l)}
   .links a.active::after{transform:scaleX(1)}
+  /* Khối nội dung nổi lên khi rê chuột */
+  .step, .train .card, .flow .card{
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s, box-shadow .35s, background .35s;
+  }
+  @media (hover:hover){
+    .step:hover, .train .card:hover, .flow .card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(248,184,102,.45);
+      background:linear-gradient(180deg,rgba(248,184,102,.09),rgba(255,255,255,.03));
+      box-shadow:0 24px 50px -24px rgba(0,0,0,.75), 0 0 40px -12px rgba(248,184,102,.35);
+    }
+    .flow .card.warn:hover{
+      border-color:rgba(255,156,138,.55);
+      background:linear-gradient(180deg,rgba(255,156,138,.09),rgba(255,255,255,.03));
+      box-shadow:0 24px 50px -24px rgba(0,0,0,.75), 0 0 40px -12px rgba(255,156,138,.35);
+    }
+    .step:hover h3, .train .card:hover h4, .flow .card:hover h4{color:var(--amb-l)}
+    .train .ic-c{transition:background .35s, box-shadow .35s, transform .35s}
+    .train .card:hover .ic-c{
+      background:rgba(248,184,102,.22);
+      box-shadow:0 0 18px rgba(248,184,102,.5);
+      transform:scale(1.08);
+    }
+  }
 </style>
 <script>
   (function () {
